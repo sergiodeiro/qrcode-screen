@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <title>Title of the document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="text/javascript" src="javascript.js"></script>
+ <!--  <script src="https://static.runoob.com/assets/qrcode/qrcode.min.js"></script> -->
+</head>
+<body>
+
+    <div id="qrcode"></div>
+    <a onclick="button()">Gerar um PNG</a>
+
+</body>
+<script>
+    function downloadURI(uri, name) {
+        var link = document.createElement("a");
+        link.download = name;
+        link.href = uri;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        delete link;
+    };
+    let qrcode = new QRCode(document.getElementById("qrcode"),
+             {
+              text: "http://www.runoob.com",
+              width: 200,
+              height: 200,
+              colorDark : "#000000",
+              colorLight : "#ffffff",
+              correctLevel : QRCode.CorrectLevel.H
+            });  
+    function button()
+    {
+        let dataUrl = document.querySelector('#qrcode').querySelector('img').src;
+        downloadURI(dataUrl, 'qrcode.png');
+    }
+</script>
+</html>
