@@ -1,6 +1,6 @@
-## QRCODE Generate Convert to PNG
+## QRCODE Generate Convert to PNG - SCREENSHORT
 
-### Generate QRCODE Convert to PNG
+### Generate QRCODE Convert to PNG - SCREENSHORT
 
 - A great element to generate qrcode. 
 - Easily Simple code
