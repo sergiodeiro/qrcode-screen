@@ -5,13 +5,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript" src="qrcoderunoob.js"></script>
  <!--  <script src="https://static.runoob.com/assets/qrcode/qrcode.min.js"></script> -->
+ <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
-<div>
-    <div id="qrcode"></div>
-    <a onclick="button()">Gerar um PNG</a>
-</div>
-
+    <div id="content" style="width: 200px; height: 200px;">
+        <div id="qrcode"></div>
+    <div>
+    <button id="download-page-as-image">Download PNG</button>   
 </body>
 <script>
     function downloadURI(uri, name) {
@@ -37,5 +37,42 @@
         let dataUrl = document.querySelector('#qrcode').querySelector('img').src;
         downloadURI(dataUrl, 'qrcode.png');
     }
+</script>
+<script>
+
+setUpDownloadPageAsImage();
+
+const original = document.querySelector('#content')
+
+function setUpDownloadPageAsImage() {
+  document.getElementById("download-page-as-image").addEventListener("click", function() {
+    html2canvas(original).then(function(canvas) {
+      console.log(canvas);
+      simulateDownloadImageClick(canvas.toDataURL(), 'qr-code.png');
+    });
+  });
+}
+
+function simulateDownloadImageClick(uri, filename) {
+  var link = document.createElement('a');
+  if (typeof link.download !== 'string') {
+    window.open(uri);
+  } else {
+    link.href = uri;
+    link.download = filename;
+    accountForFirefox(clickLink, link);
+  }
+}
+
+function clickLink(link) {
+  link.click();
+}
+
+function accountForFirefox(click) { // wrapper function
+  let link = arguments[1];
+  document.body.appendChild(link);
+  click(link);
+  document.body.removeChild(link);
+}
 </script>
 </html>
